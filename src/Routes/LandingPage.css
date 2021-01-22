@@ -1,0 +1,10 @@
+.landing-page-desc {
+  margin: auto;
+  width: 95%;
+}
+
+@media all and (min-width: 800px) {
+  .landing-page-desc {
+    width: 60%;
+  }
+}

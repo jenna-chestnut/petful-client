@@ -1,23 +1,24 @@
-import logo from './logo.svg';
 import './App.css';
+import { Route, Switch, Link } from 'react-router-dom';
+import LandingPage from './Routes/LandingPage';
+import AdoptAPetPage from './Routes/AdoptAPetPage';
+import NewFamilyPage from './Routes/NewFamilyPage';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+      <header className="App-header"><Link to='/'>
+        <h1>Petful</h1>
+        </Link></header>
+    
+      <Switch>
+      <Route exact path='/' component={LandingPage}/>
+      <Route path='/adoption' component={AdoptAPetPage}/>
+      <Route path='/new-family' component={NewFamilyPage}/>
+      <Route path='/' component={LandingPage}/>
+      </Switch>
+      
     </div>
   );
 }

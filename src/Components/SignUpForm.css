@@ -1,0 +1,9 @@
+.sign-up-form {
+  width: 90%;
+  padding: 15px 5px;
+  text-align: center;
+}
+
+.sign-up-form input {
+  margin: 10px;
+}
