@@ -1,0 +1,19 @@
+.new-fam-page {
+  text-align: center;
+  width: 95%;
+  margin: 15px auto;
+}
+
+.new-family-page a {
+  display: block;
+}
+
+.new-family-page img {
+  width: 100%;
+}
+
+@media all and (min-width: 800px) {
+  .new-fam-page {
+    width: 65%;
+  }
+}

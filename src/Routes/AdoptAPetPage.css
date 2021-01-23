@@ -1,14 +1,4 @@
-.adoption-center {
-  display: flex;
-  flex-direction: column;
-}
-
-.loading-img {
-  width: 150px;
-}
-
-@media all and (min-width: 800px) {
-  .adoption-center {
-    flex-direction: row;
-  }
+.loading {
+  margin-top: 20px;
+  color: slategray;
 }

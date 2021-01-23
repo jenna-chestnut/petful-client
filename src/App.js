@@ -12,13 +12,16 @@ function App() {
         <h1>Petful</h1>
         </Link></header>
     
+      <main>
       <Switch>
       <Route exact path='/' component={LandingPage}/>
       <Route path='/adoption' component={AdoptAPetPage}/>
       <Route path='/new-family' component={NewFamilyPage}/>
       <Route path='/' component={LandingPage}/>
       </Switch>
+      </main>
       
+      <footer>Jenna Chestnut / <a href='https://linktr.ee/jenna.chestnut' target='_blank' rel='noreferrer'>@Jennabot5000</a></footer>
     </div>
   );
 }

@@ -6,7 +6,6 @@ const PeopleService = {
   },
   post(name) {
     name = JSON.stringify({name : name});
-    console.log(name);
     return mutableFetch('people', null, {
       method: 'POST',
       headers: {

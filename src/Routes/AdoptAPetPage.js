@@ -6,20 +6,75 @@ import PetfulContext from '../Context';
 import PeopleService from '../Services/people-service';
 import PetService from '../Services/pet-service';
 import loadingImg from '../images/loading.gif';
+import './AdoptAPetPage.css';
 
 class AdoptAPetPage extends React.Component {
   static contextType = PetfulContext;
 
+  state = { 
+      buttons: false,
+      names : ['Tuesday', 'August', 'Sunny', 'Juniper', 
+      'Cascada', 'Cheddar'],
+   }
+
+   fifoInt = 0;
+
   componentDidMount() {
+    const mounted = () => {
+      this.context.clearError();
+  
+      PeopleService.get()
+      .then(this.context.setPeople)
+      .catch(this.context.setError);
+  
+      PetService.get()
+      .then(this.context.setPets)
+      .catch(this.context.setError);
+  
+      this.fifoInt = setInterval(this.fifo, 5000)
+      this.showButtons();
+      }
+
+    this._isMounted = true; //this prevents memory leaks when unmounting
+    this._isMounted && mounted();
+  }
+
+  componentWillUnmount() {
     this.context.clearError();
+    clearInterval(this.fifoInt)
+    this._isMounted = false;
+  }
 
-    PeopleService.get()
-    .then(this.context.setPeople)
-    .catch(this.context.setError);
+  showButtons = () => {
+    const { people, userName } = this.context;
+    let buttons = people[0] === userName 
+    ? true : false;
+    this.setState({ buttons })
+  }
 
-    PetService.get()
-    .then(this.context.setPets)
-    .catch(this.context.setError);
+  adoptRandom = () => {
+    let type = Math.random() >= 0.5 ? 'cat' : 'dog';
+    PetService.adopt(type)
+    .then(() => 
+      PetService.get()
+      .then(this.context.setPets)
+      .then(() => 
+      PeopleService.get()
+      .then(this.context.setPeople))
+      .catch(this.context.setError))
+  }
+
+  fifo = () => {
+    if (this.context.userName 
+      && this.context.userName !== this.context.people[0]) {
+      if (this.context.people.length < 2) {
+        this.context.setPeople([
+          ...this.context.people,
+          this.state.names[Math.floor(Math.random() * this.state.names.length)]])
+      }
+        setTimeout(this.adoptRandom, 3000);
+    }
+    this.showButtons();
   }
 
   render() {
@@ -27,24 +82,25 @@ class AdoptAPetPage extends React.Component {
 
     const adoptPageBody = people.length || petsUpNext.cat 
     ? (
-    <><div className='item'>
-    <SignUpForm/>
+    <div className='adoption-center group'>
+    <div className='item'>
+    <SignUpForm fifo={this.fifo}/>
     <WaitingList/>
     </div>
     <div className='item-wide'>
-    <PetView petType='cat'/>
-    <PetView petType='dog'/>
-    </div></>
+    <PetView petType='cat' buttons={this.state.buttons}/>
+    <PetView petType='dog' buttons={this.state.buttons}/>
+    </div></div>
     )
-    : <img src={loadingImg} className='loading-img' alt='loading'/>
+    : <div className='loading'>
+      <h3> Loading... </h3>
+      <img src={loadingImg} alt='loading'/>
+      </div>
 
       return (
       <div className='adopt-page'>
-        <h2>Adopt a Pet</h2>
-        
-        <div className='adoption-center group'>
+        <h2>Adopt a Pet</h2>    
         {adoptPageBody}
-        </div>
       </div>
       );
     }

@@ -1,9 +1,19 @@
 import React from 'react';
 import PetfulContext from '../Context';
+import PetService from '../Services/pet-service';
+import { withRouter } from 'react-router-dom';
 import './PetView.css';
 
 class PetView extends React.Component {
   static contextType = PetfulContext;
+
+  handleAdoption(pet) {
+    PetService.adopt(pet)
+    .then(this.context.setNewFam)
+    .then(this.context.clearUserName)
+    .then(this.props.history.push('/new-family'))
+    .catch(this.context.setError)
+  }
 
   render() {
     let petType = this.props.petType;
@@ -22,10 +32,13 @@ class PetView extends React.Component {
           <p>Breed: {pet.breed || 'pet breed'}</p>
           <p>Story: {pet.story || 'pet story'}</p>
           </div>
+          {this.props.buttons && 
+          <button onClick={() => this.handleAdoption(petType)}>
+            Adopt me!</button>}
         </div>
         </div>
       );
     }
 }
 
-export default PetView;
+export default withRouter(PetView);

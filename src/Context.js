@@ -27,7 +27,7 @@ export class PetfulProvider extends Component {
   };
 
   setError = async e => {
-    const error = await e.error.message;
+    const error = await e.message;
     return await this.setState({ error : error })
   }
 
@@ -37,6 +37,10 @@ export class PetfulProvider extends Component {
 
   setUserName = userName => {
     this.setState({ userName })
+  }
+
+  clearUserName = () => {
+    this.setUserName(null)
   }
 
   setNewFam = newFam => {
@@ -65,6 +69,7 @@ export class PetfulProvider extends Component {
       setError: this.setError,
       clearError: this.clearError,
       setUserName: this.setUserName,
+      clearUserName: this.clearUserName,
       setNewFam: this.setNewFam,
       setPets: this.setPets,
       setPeople: this.setPeople,

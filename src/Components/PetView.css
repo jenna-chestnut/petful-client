@@ -3,10 +3,15 @@
   text-align: center;
   margin: auto;
   display: flex;
+  padding-bottom: 20px;
 }
 
 .name-and-img {
   flex: 1;
+}
+
+.name-and-img img {
+  width: 100%;
 }
 
 .pet-desc {
@@ -18,5 +23,6 @@
 }
 
 .pet-desc div {
+  max-width: 200px;
   padding-top: 30px;
 }

@@ -7,30 +7,35 @@ class SignUpForm extends React.Component {
   static contextType = PetfulContext;
 
   handleSubmit = (e) => {
+    e.preventDefault();
+
     let { name } = e.target;
     PeopleService.post(name.value)
-    .then(console.log)
+    .then(this.context.setUserName)
     .then(() => {
       this.context.setPeople([
         ...this.context.people,
         this.context.userName
       ])
     })
-    .then(name = '')
+    .then(() => this.props.fifo())
     .catch(this.context.setError)
   }
 
   render() {
-      return (
-        <div className='sign-up-form'>
-        <form onSubmit={(e) => this.handleSubmit(e)}>
-          <legend>Add your name:</legend>
-          <label htmlFor='name'>Name:</label>
-          <input type='text' id='name' name='name'></input>
-          <button type='submit'>Put me on the list!</button>
-        </form>
-        </div>
-      );
+    const signUpForm = this.context.userName
+    ? ''
+    : (
+      <div className='sign-up-form'>
+      <form onSubmit={(e) => this.handleSubmit(e)}>
+        <legend>Add your name:</legend>
+        <label htmlFor='name'>Name:</label>
+        <input type='text' id='name' name='name'></input>
+        <button type='submit'>Put me on the list!</button>
+      </form>
+      </div>
+    )
+      return signUpForm;
     }
 }
 

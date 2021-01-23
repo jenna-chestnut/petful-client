@@ -1,9 +1,45 @@
 body {
   text-align: center;
+  font-family: helvetica, arial;
+  margin: 0;
 }
 
-img {
-  width: 100%;
+main {
+  min-height: 80vh;
+}
+
+header, footer {
+  background-color: rgb(38, 54, 70);
+  color: white;
+  padding: 15px;
+}
+
+header a, header a:visited,
+footer a, footer a:visited {
+  color: white;
+}
+
+footer a {
+  display: inline;
+}
+
+a {
+  text-decoration: none;
+  display: block;
+  margin: 10px auto;
+}
+
+a:visited {
+  color: black;
+}
+
+a:hover, header a:hover, footer a:hover {
+  color: lime;
+}
+
+h1 {
+  font-size: 55px;
+  margin: 0px auto;
 }
 
 .group {
@@ -22,5 +58,9 @@ img {
 @media all and (min-width: 800px) {
   .group {
     flex-direction: row;
+  }
+  h2 {
+    width: 60%;
+    margin: 15px auto;
   }
 }
