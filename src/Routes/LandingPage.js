@@ -19,7 +19,7 @@ class LandingPage extends React.Component {
         <p>When you join the adoption waiting list, you'll wait until you are first in line. </p>
         <p>Once it's your turn to pick, Petful will show you two animals - a cat and dog - that have been waiting the longest for their new family. It's then up to you to choose who you'll take home. (No pressure!)</p>
 
-        <Link to='/adoption'>Click here to adopt a pet!</Link>
+        <button onClick={() => this.props.history.push('/adoption')}>Click here to adopt a pet!</button>
         </div>
       </div>
       );
