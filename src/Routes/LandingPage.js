@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import catsDogsImg from '../images/dogs-and-cats.jpg';
 import './LandingPage.css';
 
