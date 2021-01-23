@@ -53,6 +53,7 @@ class AdoptAPetPage extends React.Component {
   adoptRandom = () => {
     let type = Math.random() >= 0.5 ? 'cat' : 'dog';
     PetService.adopt(type)
+    .then(this.context.setNewFam)
     .then(() => 
       PetService.get()
       .then(this.context.setPets)

@@ -20,9 +20,10 @@
   text-align: left;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 
 .pet-desc div {
-  max-width: 200px;
+  max-width: 250px;
   padding-top: 30px;
 }

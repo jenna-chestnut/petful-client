@@ -15,6 +15,7 @@ class WaitingList extends React.Component {
   }
 
   render = () => {
+    const { newFam } = this.context;
       return (
         <div className='waiting-list'>
         <h4>WAITING LIST</h4>
@@ -22,6 +23,7 @@ class WaitingList extends React.Component {
         <ol>
         {this.renderWaiting()}
         </ol>
+        {newFam.pet && <h4>{newFam.pet.name} was adopted by {newFam.owner}!</h4>}
         </div>
       );
   }

@@ -55,6 +55,20 @@ h1 {
   flex: 1.5;
 }
 
+button {
+  display: inline block;
+  margin: 5px auto;
+  font-weight: bold;
+  background-color: rgb(128, 207, 0);
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: rgb(208, 255, 0);
+}
+
 @media all and (min-width: 800px) {
   .group {
     flex-direction: row;
