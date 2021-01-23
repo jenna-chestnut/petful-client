@@ -24,7 +24,7 @@ class WaitingList extends React.Component {
         </ol>
         </div>
       );
-    }
+  }
 }
 
 export default WaitingList;

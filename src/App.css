@@ -34,7 +34,7 @@ a:visited {
 }
 
 a:hover, header a:hover, footer a:hover {
-  color: lime;
+  color: rgb(169, 207, 0);
 }
 
 h1 {

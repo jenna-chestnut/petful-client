@@ -12,9 +12,7 @@ class AdoptAPetPage extends React.Component {
   static contextType = PetfulContext;
 
   state = { 
-      buttons: false,
-      names : ['Tuesday', 'August', 'Sunny', 'Juniper', 
-      'Cascada', 'Cheddar'],
+      buttons: false
    }
 
    fifoInt = 0;
@@ -23,6 +21,7 @@ class AdoptAPetPage extends React.Component {
     const mounted = () => {
       this.context.clearError();
   
+      this.showButtons();
       PeopleService.get()
       .then(this.context.setPeople)
       .catch(this.context.setError);
@@ -32,7 +31,6 @@ class AdoptAPetPage extends React.Component {
       .catch(this.context.setError);
   
       this.fifoInt = setInterval(this.fifo, 5000)
-      this.showButtons();
       }
 
     this._isMounted = true; //this prevents memory leaks when unmounting
@@ -61,17 +59,13 @@ class AdoptAPetPage extends React.Component {
       .then(() => 
       PeopleService.get()
       .then(this.context.setPeople))
-      .catch(this.context.setError))
+      )
+      .then(this.showButtons())
+      .catch(this.context.setError)
   }
 
   fifo = () => {
-    if (this.context.userName 
-      && this.context.userName !== this.context.people[0]) {
-      if (this.context.people.length < 2) {
-        this.context.setPeople([
-          ...this.context.people,
-          this.state.names[Math.floor(Math.random() * this.state.names.length)]])
-      }
+    if (this.context.userName !== this.context.people[0]) {
         setTimeout(this.adoptRandom, 3000);
     }
     this.showButtons();

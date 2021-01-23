@@ -47,7 +47,7 @@ export class PetfulProvider extends Component {
     this.setState({ newFam })
   }
 
-  clearNewFam = newFam => {
+  clearNewFam = () => {
     this.setNewFam({});
   }
 
