@@ -13,7 +13,7 @@ class WaitingList extends React.Component {
       : <li key={idx}>{el}</li>
     })
   }
-
+  
   render = () => {
     const { newFam } = this.context;
       return (

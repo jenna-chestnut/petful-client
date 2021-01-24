@@ -16,31 +16,24 @@ class AdoptAPetPage extends React.Component {
    }
 
    fifoInt = 0;
+   fifoTimeOut = 0;
 
   componentDidMount() {
-    const mounted = () => {
       this.context.clearError();
-  
+      this.updatePage();
       this.showButtons();
-      PeopleService.get()
-      .then(this.context.setPeople)
-      .catch(this.context.setError);
   
-      PetService.get()
-      .then(this.context.setPets)
-      .catch(this.context.setError);
-  
-      this.fifoInt = setInterval(this.fifo, 5000)
-      }
-
-    this._isMounted = true; //this prevents memory leaks when unmounting
-    this._isMounted && mounted();
+      this.fifoInt = setInterval(this.fifo, 2000)
   }
 
-  componentWillUnmount() {
+  componentWillUnmount = () => {
     this.context.clearError();
-    clearInterval(this.fifoInt)
-    this._isMounted = false;
+    this.stopTimers();
+  }
+
+  stopTimers = () => {
+    clearInterval(this.fifoInt);
+    clearTimeout(this.fifoTimeOut);
   }
 
   showButtons = () => {
@@ -50,26 +43,31 @@ class AdoptAPetPage extends React.Component {
     this.setState({ buttons })
   }
 
+  updatePage = () => {
+    PetService.get()
+      .then(this.context.setPets) 
+    PeopleService.get()
+      .then(this.context.setPeople)
+  }
+
   adoptRandom = () => {
     let type = Math.random() >= 0.5 ? 'cat' : 'dog';
+    
     PetService.adopt(type)
     .then(this.context.setNewFam)
-    .then(() => 
-      PetService.get()
-      .then(this.context.setPets)
-      .then(() => 
-      PeopleService.get()
-      .then(this.context.setPeople))
-      )
-      .then(this.showButtons())
-      .catch(this.context.setError)
+    .then(this.updatePage)
+    .catch(this.context.setError)
   }
 
   fifo = () => {
-    if (this.context.userName !== this.context.people[0]) {
-        setTimeout(this.adoptRandom, 3000);
+    const { userName , people } = this.context;
+    if (userName !== people[0]) {
+        this.fifoTimeOut = setTimeout(this.adoptRandom, 5000);
     }
-    this.showButtons();
+    else { 
+      this.stopTimers();
+      this.showButtons(); 
+    }
   }
 
   render() {
@@ -79,7 +77,7 @@ class AdoptAPetPage extends React.Component {
     ? (
     <div className='adoption-center group'>
     <div className='item'>
-    <SignUpForm fifo={this.fifo}/>
+    <SignUpForm restartWaiting={this.fifo}/>
     <WaitingList/>
     </div>
     <div className='item-wide'>
