@@ -23,7 +23,7 @@ class AdoptAPetPage extends React.Component {
       this.updatePage();
       this.showButtons();
   
-      this.fifoInt = setInterval(this.fifo, 2000)
+      this.fifoInt = setInterval(this.fifo, 5000)
   }
 
   componentWillUnmount = () => {
@@ -62,7 +62,7 @@ class AdoptAPetPage extends React.Component {
   fifo = () => {
     const { userName , people } = this.context;
     if (userName !== people[0]) {
-        this.fifoTimeOut = setTimeout(this.adoptRandom, 5000);
+        this.fifoTimeOut = setTimeout(this.adoptRandom, 2000);
     }
     else { 
       this.stopTimers();
