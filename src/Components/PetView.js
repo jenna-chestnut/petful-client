@@ -32,9 +32,10 @@ class PetView extends React.Component {
           <p>Breed: {pet.breed || 'pet breed'}</p>
           <p>Story: {pet.story || 'pet story'}</p>
           </div>
-          {this.props.buttons && 
+          <div className='adopt-button'>{this.props.buttons && 
           <button onClick={() => this.handleAdoption(petType)}>
             Adopt me!</button>}
+          </div>
         </div>
         </div>
       );
