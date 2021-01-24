@@ -30,7 +30,7 @@ class PetView extends React.Component {
           <p>Gender: {pet.gender || 'pet gender'}</p>
           <p>Age: {pet.age || 'pet age'}</p>
           <p>Breed: {pet.breed || 'pet breed'}</p>
-          <p>Story: {pet.story || 'pet story'}</p>
+          <p className='story'>Story: {pet.story || 'pet story'}</p>
           </div>
           <div className='adopt-button'>{this.props.buttons && 
           <button onClick={() => this.handleAdoption(petType)}>

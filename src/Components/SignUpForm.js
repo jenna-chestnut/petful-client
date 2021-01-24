@@ -18,7 +18,6 @@ class SignUpForm extends React.Component {
         this.context.userName
       ])
     })
-    .then(() =>  this.props.fifo())
     .catch(this.context.setError)
   }
 

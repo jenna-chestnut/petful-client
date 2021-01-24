@@ -50,9 +50,17 @@ class AdoptAPetPage extends React.Component {
       .then(this.context.setPets) 
     PeopleService.get()
       .then(this.context.setPeople)
+    this.showButtons();
   }
 
   adoptRandom = () => {
+    const { userName , people } = this.context;
+    if (userName === people[0]) { 
+      this.stopTimers();
+      this.showButtons(); 
+      return;
+    }
+
     let type = Math.random() >= 0.5 ? 'cat' : 'dog';
     
     PetService.adopt(type)
@@ -63,10 +71,12 @@ class AdoptAPetPage extends React.Component {
 
   fifo = () => {
     const { userName , people } = this.context;
-    if (userName !== people[0]) {
-        this.fifoTimeOut = setTimeout(this.adoptRandom, 2000);
+    console.log(this.fifoTimeOut);
+    if (userName !== people[0] && this.fifoTimeOut < 100) {
+        this.fifoTimeOut = setTimeout(this.adoptRandom, 5000);
+        return;
     }
-    else { 
+    if (userName === people[0]) { 
       this.stopTimers();
       this.showButtons(); 
     }
