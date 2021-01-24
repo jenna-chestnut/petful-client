@@ -23,7 +23,9 @@ class AdoptAPetPage extends React.Component {
       this.updatePage();
       this.showButtons();
   
-      this.fifoInt = setInterval(this.fifo, 5000)
+      if (this.fifoInt !== 0) {
+        this.fifoInt = setInterval(this.fifo, 5000)
+      }
   }
 
   componentWillUnmount = () => {
