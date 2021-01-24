@@ -77,7 +77,7 @@ class AdoptAPetPage extends React.Component {
     ? (
     <div className='adoption-center group'>
     <div className='item'>
-    <SignUpForm restartWaiting={this.fifo}/>
+    <SignUpForm fifo={this.fifo}/>
     <WaitingList/>
     </div>
     <div className='item-wide'>
